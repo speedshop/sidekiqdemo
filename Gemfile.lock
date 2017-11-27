@@ -41,6 +41,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     ntlm-http (0.1.1)
     pg (0.21.0)
+    puma (3.11.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -65,6 +66,7 @@ DEPENDENCIES
   activerecord
   mechanize
   pg
+  puma
   sidekiq
 
 BUNDLED WITH
