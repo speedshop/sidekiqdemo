@@ -10,6 +10,10 @@ ActiveRecord::Base.configurations = {
    'development' => {
       'adapter'  => 'postgresql',
       'pool'     => CONCURRENCY
+   },
+   'production' => {
+      'adapter'  => 'postgresql',
+      'pool'     => CONCURRENCY
    }
 }
 ActiveRecord::Base.establish_connection(ENV.fetch("DATABASE_URL") {"postgresql://localhost/sidekiqtest"})
