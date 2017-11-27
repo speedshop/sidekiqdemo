@@ -1,0 +1,34 @@
+{
+  "name": "Sidekiq Demonstrator",
+  "description": "Sidekiq application that writes random Wikipedia pages to a database",
+  "repository": "https://github.com/speedshop/sidekiq-demo",
+  "success_url": "/",
+  "env": {
+    "RAILS_MAX_THREADS": {
+      "description": "How many threads you'll use - sets Sidekiq concurrency and Rails DB pool",
+      "value": "25"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "Standard-1X"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "Standard-2X"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    {
+      "plan": "heroku-redis:premium-0"
+    },
+    {
+      "plan": "heroku-postgresql:standard-0",
+      "options": {
+        "version": "9.6"
+      }
+    }
+  ]
+}
