@@ -6,7 +6,7 @@ require_relative "lib/workers.rb"
 
 CONCURRENCY = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
 url = ENV.fetch("DATABASE_URL") {"postgresql://localhost/sidekiqtest"}
-url << "?pool=#{CONCURRENCY * 2}"
+url = url + "?pool=#{CONCURRENCY * 2}"
 ActiveRecord::Base.establish_connection(url)
 ActiveRecord::Base.logger = Logger.new(nil)
 
