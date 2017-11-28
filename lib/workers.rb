@@ -2,6 +2,8 @@ require 'mechanize'
 require 'sidekiq'
 require "active_record"
 require "logger"
+require "securerandom"
+require "random-word"
 
 class Result < ActiveRecord::Base
 end
@@ -10,15 +12,14 @@ end
 # then read some variable data.
 class APIFetcher
   include Sidekiq::Worker
+  WORDLIST = RandomWord.nouns && RandomWord.word_list
   sidekiq_options :retry => false
 
   def perform
-    random = Random.new
-    sleep(random.rand(1.0)) # Sleep for 0 to 1 seconds
-    data_length = random.rand(1024 * 100) # 0 to 100 KB of random data
-    data = File.read("/dev/urandom", data_length)
-    data.encode!('UTF-8', invalid: :replace, undef: :replace)
-    data.gsub!("\u0000", '') # Remove null bytes
+    query = WORDLIST.sample
+    result = Mechanize.new.get("https://www.google.com/search?q=#{query}")
+
+    data = result.links.to_s
 
     DBWriter.perform_async(data)
     APIFetcher.perform_async
