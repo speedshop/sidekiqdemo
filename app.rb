@@ -5,8 +5,9 @@ require "logger"
 require_relative "lib/workers.rb"
 
 CONCURRENCY = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
-
-ActiveRecord::Base.establish_connection(ENV.fetch("DATABASE_URL") {"postgresql://localhost/sidekiqtest?pool=#{CONCURRENCY}"})
+url = ENV.fetch("DATABASE_URL") {"postgresql://localhost/sidekiqtest"}
+url << "?pool=#{CONCURRENCY * 2}"
+ActiveRecord::Base.establish_connection(url)
 ActiveRecord::Base.logger = Logger.new(nil)
 
 ActiveRecord::Schema.define do
