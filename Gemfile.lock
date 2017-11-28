@@ -45,7 +45,6 @@ GEM
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
-    random-word (2.0.0)
     redis (4.0.1)
     sidekiq (5.0.5)
       concurrent-ruby (~> 1.0)
@@ -68,7 +67,6 @@ DEPENDENCIES
   mechanize
   pg
   puma
-  random-word
   sidekiq
 
 BUNDLED WITH
